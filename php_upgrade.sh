@@ -86,7 +86,7 @@ else
 	printf "Success\n"
 fi
 
-# Update the php packages.
+# Upgrade the php packages.
 printf "\nInstalling new php packages...\n"
 #if ! yum -y install php${PHP_VER}w php${PHP_VER}w-common php${PHP_VER}w-fpm php${PHP_VER}w-process php${PHP_VER}w-cli php${PHP_VER}w-mysql php${PHP_VER}w-xml php${PHP_VER}w-gd php${PHP_VER}w-pdo php${PHP_VER}w-odbc php-pear &> /dev/null
 # We install all the previously saved packages.
@@ -121,7 +121,7 @@ fi
 
 # Restart Apache (httpd)
 printf "\nReloading HTTPD server...\n"
-if ! systemctl restart httpd.service &> /dev/null
+if ! systemctl reload httpd.service &> /dev/null
 then
 	printf "Could not restart Apache\n"
 else
