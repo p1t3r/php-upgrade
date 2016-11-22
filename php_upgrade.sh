@@ -120,8 +120,8 @@ then
 fi
 
 # Restart Apache (httpd)
-printf "\nReloading HTTPD server...\n"
-if ! systemctl reload httpd.service &> /dev/null
+printf "\nRestarting HTTPD server...\n"
+if ! systemctl restart httpd.service &> /dev/null
 then
 	printf "Could not restart Apache\n"
 else
