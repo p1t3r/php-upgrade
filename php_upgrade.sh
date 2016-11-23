@@ -11,26 +11,23 @@ clear
 if [ $EUID -ne 0 ]
 then
 	printf "You have to run this script as a root/sudo.\n" &&
-	exit
+	exit 1
+# Check whether we run on CentOS 7
+elif [ $(grep -c "CentOS Linux release 7" /etc/system-release) -eq 0 ]
+then
+        printf "\n##### Sorry, this script works only on CentOS 7 #####\n\n"
+        exit 1
 # Check whether a php version has been provided for us on the command line.
 elif [ $# -eq 0 ]
 then
 	printf "Usage: $0 <php version to which the system should be upgraded to e.g. 70 for 7.0>\n" &&
-	exit
+	exit 1
 else
 	PHP_VER=$1
-fi
-# Check whether we run on CentOS 7
-clear
-if [ $(grep -c "CentOS Linux release 7" /etc/system-release) -ne 0 ]
-then
+	clear
         printf "\n##### PHP upgrade #####\n\n"
         sleep 2
-else
-        printf "\n##### Sorry, this script works only on CentOS 7 #####\n\n"
-        exit 1
 fi
-
 
 # Install Webtatic repositories.
 printf "\nInstalling Webtatic repositories...\n"
@@ -124,6 +121,7 @@ printf "\nRestarting HTTPD server...\n"
 if ! systemctl restart httpd.service &> /dev/null
 then
 	printf "Could not restart Apache\n"
+	exit 1
 else
 	printf "Success\n\n"
 fi
