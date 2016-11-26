@@ -1,4 +1,4 @@
-# php_upgrade
+# php-upgrade
 Upgrades php version. 
 Currently runs only on CentOS 7.
 
